@@ -18,7 +18,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="#">Inicio <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Inicio <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Nosotros</a>
@@ -28,7 +28,7 @@
                             Peliculas
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Peliculas Disponibles</a>
+                            <a class="dropdown-item" asp-area="" asp-controller="Peliculas" asp-action="Index">Peliculas Disponibles</a>
                             <a class="dropdown-item" href="#">Comprar Taquilla para Pelicula</a>
                     </li>
                     <li class="nav-item">
@@ -37,22 +37,19 @@
                 </ul>
 
                 <form class="form-inline my-2 my-lg-0">
-                    <img  src="~/Logo/escudo-RD.png" width="280px" height="50px" />
+                    <img src="~/Logo/escudo-RD.png" width="280px" height="50px" />
                 </form>
             </div>
         </nav>
     </header>
+
     <section class="jumbotron">
         <div class="container">
             <h1>ServiSoft</h1>
-
-
         </div>
-
-
     </section>
 
-  
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
