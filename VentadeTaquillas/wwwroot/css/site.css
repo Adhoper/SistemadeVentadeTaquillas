@@ -1,2 +1,10 @@
-﻿body {
+﻿.navbar {
+    margin-bottom: 0;
+}
+
+
+.jumbotron {
+    background:#0094ff;
+    color:aliceblue;
+    padding:20px 0;
 }
