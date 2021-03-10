@@ -1,4 +1,10 @@
-﻿.navbar {
+﻿
+.main {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.navbar {
     margin-bottom: 0;
 }
 
