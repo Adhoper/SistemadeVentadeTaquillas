@@ -13,8 +13,14 @@
 .post .thumb{
     margin-right:10px;
     width:40%;
+
 }
 
 .post .thumb img{
+    width:100%;
+    float:right;
+}
+
+.post .contenedor-botones{
     width:100%;
 }
