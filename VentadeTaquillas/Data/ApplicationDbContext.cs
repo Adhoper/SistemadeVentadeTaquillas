@@ -13,7 +13,6 @@ namespace VentadeTaquillas.Data
     {
 
         public DbSet<Administrador> Administradores { get; set; }
-        public DbSet<Asiento> Asientos { get; set; }
         public DbSet<Cliente> Clientes { get; set; }
         public DbSet<Taquilla> Taquillas { get; set; }
         public DbSet<Pelicula> Peliculas { get; set; }
@@ -60,12 +59,6 @@ namespace VentadeTaquillas.Data
         public string Ciudad { get; set; }
         public string Telefono { get; set; }
     }
-    public class Asiento
-    {
-        public Guid AsientoId { get; set; }
-        public int NumAsiento { get; set; }
-        public int Cantidad { get; set; }
-     }
 
         public class Taquilla
         {
