@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -14,6 +16,7 @@ namespace VentadeTaquillas.Data
         public DbSet<Asiento> Asientos { get; set; }
         public DbSet<Cliente> Clientes { get; set; }
         public DbSet<Taquilla> Taquillas { get; set; }
+        public DbSet<Pelicula> Peliculas { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -58,16 +61,24 @@ namespace VentadeTaquillas.Data
         public string Telefono { get; set; }
     }
     public class Asiento
-        {
-            public Guid AsientoId { get; set; }
-            public int NumAsiento { get; set; }
-        }
+    {
+        public Guid AsientoId { get; set; }
+        public int NumAsiento { get; set; }
+        public int Cantidad { get; set; }
+     }
 
         public class Taquilla
         {
-            public Guid Id { get; set; }
+            public Guid TaquillaId { get; set; }
             public Guid ClienteId { get; set; }
             public Guid AsientoId { get; set; }
+        public Guid PeliculaId { get; set; }
         }
+
+    public class Pelicula
+    {
+        public Guid PeliculaId { get; set; }
+        public Guid NombrePeli { get; set; }
+    }
 }
 
