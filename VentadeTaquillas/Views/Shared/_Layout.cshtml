@@ -29,6 +29,7 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" asp-area="" asp-controller="Peliculas" asp-action="Index">Peliculas Disponibles</a>
+                            </div>
                     </li>
                 </ul>
 
@@ -46,7 +47,7 @@
     </section>
 
 
-    <section class="main container"
+    <section class="main container">
         <div class="row">
             <section class="posts col-md-9">
                 <div class="miga-de-pan">
@@ -58,15 +59,15 @@
 
                 </div>
 
-                <div class="container">
-                    <main role="main" class="pb-3">
-                        @RenderBody()
-                    </main>
-                </div>
+    
+                    
+                 @RenderBody()
+                 
+ 
 
             </section>
 
-            <aside class="col-md-3 hidden-xs hidden-sm">
+            <aside class="col-md-3  hidden-xs hidden-sm">
                 <h4>Categorias</h4>
                 <div class="list-group">
                     <a href="#" class="list-group-item active">Prueba</a>
@@ -74,15 +75,22 @@
                     <a href="#" class="list-group-item">Queso</a>
                     <a href="#" class="list-group-item">Pan</a>
 
-                </div>
+                </div><br />
 
                 <h4>Articulos Recientes</h4>
-                <a href="#" class="list-group-item active"><h4 class="list-group-item-heading">Categorias</h4>Compra tus Taquillas para tu Pelicula</a>
-                <p class="list-group-item-text">Compra tu Taquilla YA!</p>
-
-
-
-            </aside>
+                <a href="#" class="list-group-item active">
+                    <h4 class="list-group-item-heading">Categorias</h4>Compra tus Taquillas para tu Pelicula
+                    <p class="list-group-item-text">Compra tu Taquilla YA!</p>
+                </a>
+                <a href="#" class="list-group-item active">
+                    <h4 class="list-group-item-heading">Categorias</h4>Compra tus Taquillas para tu Pelicula
+                    <p class="list-group-item-text">Compra tu Taquilla YA!</p>
+                </a>
+                <a href="#" class="list-group-item active">
+                    <h4 class="list-group-item-heading">Categorias</h4>Compra tus Taquillas para tu Pelicula
+                    <p class="list-group-item-text">Compra tu Taquilla YA!</p>
+                </a>
+        </aside>
 
         </div>
 

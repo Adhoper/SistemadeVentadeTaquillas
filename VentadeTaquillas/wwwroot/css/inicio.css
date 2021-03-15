@@ -1,4 +1,8 @@
 ﻿
+.main {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
 
 .post{
     padding-bottom:20px ;
@@ -18,7 +22,6 @@
 
 .post .thumb img{
     width:100%;
-    float:right;
 }
 
 .post .contenedor-botones{
