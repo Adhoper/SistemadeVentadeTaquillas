@@ -29,12 +29,12 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" asp-area="" asp-controller="Peliculas" asp-action="Index">Peliculas Disponibles</a>
-                            </div>
+                        </div>
                     </li>
                 </ul>
 
                 <div class="d-inline my-2 my-lg-0">
-                    <img class="bg-white rounded" src="~/Logo/escudo-RD.png" width="280px" height="50px" />
+                    <img src="~/Logo/republicadominicana.png" width="270px" height="45px" />
                 </div>
             </div>
         </nav>
@@ -43,6 +43,7 @@
     <section class="jumbotron">
         <div class="container">
             <h1>ServiSoft</h1>
+            <p>Los Mejores en Servicio de Software</p>
         </div>
     </section>
 
@@ -59,11 +60,11 @@
 
                 </div>
 
-    
-                    
-                 @RenderBody()
-                 
- 
+
+
+                @RenderBody()
+
+
 
             </section>
 
@@ -90,25 +91,56 @@
                     <h4 class="list-group-item-heading">Categorias</h4>Compra tus Taquillas para tu Pelicula
                     <p class="list-group-item-text">Compra tu Taquilla YA!</p>
                 </a>
-        </aside>
+            </aside>
 
         </div>
 
     </section>
 
-    
 
-
-    <footer class="bg-dark text-white">
+    <footer class="bg-dark text-white py-4">
         <div class="container">
             <nav class="row">
-                <a href="#" class="col-3 text-reset text-uppercase d-flex align-items-center">Logo</a>
+                <a href="#" class="col-3 text-reset text-uppercase d-flex align-items-center">ServiSoft</a>
 
                 <ul class="col-3 list-unstyled">
-                    <li class="font-weight-bold text-uppercase">Recursos</li>
-                    <li class="text-reset">Link 1</li>
-                    <li class="text-reset">Link 2</li>
-                    <li class="text-reset">Link 3</li>
+                    <li class="font-weight-bold text-uppercase">Informaciones</li>
+                    <li><p class="text-reset">Arbolado, San Pedro de Macoris, Las Flores 1616</p></li>
+                    <li><p class="text-reset">809-816-2616 - ServiSoft_RD@gmail.com</p></li>
+                    <li><p class="text-reset">© 2021 TODOS LOS DERECHOS RESERVADOS</p></li>
+
+
+                </ul>
+
+
+                <ul class="col-3 list-unstyled">
+
+                    <li><img src="~/Logo/escudo.png" /></li><br />
+
+                    <li><a class="text-reset" href="#"><img src="~/Nortic/NorticA2.png" /></a></li>
+
+
+                </ul>
+
+                <ul class="col-3 list-unstyled">
+                    <li class="font-weight-bold text-uppercase">Redes Sociales</li>
+                    <li class="d-flex justify-content-between">
+                        <a class="text-reset" href="#">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a class="text-reset" href="#">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a class="text-reset" href="#">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                        <a class="text-reset" href="#">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+
+
+                    </li>
+
 
                 </ul>
             </nav>
@@ -119,6 +151,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js" integrity="sha384-SlE991lGASHoBfWbelyBPLsUlwY1GwNDJo3jSJO04KZ33K2bwfV9YBauFfnzvynJ" crossorigin="anonymous"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>
