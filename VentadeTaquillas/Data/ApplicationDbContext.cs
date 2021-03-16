@@ -17,6 +17,10 @@ namespace VentadeTaquillas.Data
         public DbSet<Taquilla> Taquillas { get; set; }
         public DbSet<Pelicula> Peliculas { get; set; }
 
+        public DbSet<Asiento> Asientos { get; set; }
+
+        public DbSet<Sala> Salas { get; set; }
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
@@ -67,6 +71,22 @@ namespace VentadeTaquillas.Data
             public Guid AsientoId { get; set; }
         public Guid PeliculaId { get; set; }
         }
+
+    public class Sala
+    {
+        public Guid SalaId { get; set; }
+        public Guid Nombre { get; set; }
+
+    }
+
+    public class Asiento
+    {
+        public Guid AsientoId { get; set; }
+        public Guid NumeroAsiento { get; set; }
+
+        public Guid SalaId { get; set; }
+
+    }
 
     public class Pelicula
     {
