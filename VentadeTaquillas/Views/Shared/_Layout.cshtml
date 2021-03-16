@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@using VentadeTaquillas.Data;
+@inject SignInManager<Administrador> SignInManager
+@inject UserManager<Administrador> UserManager
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -10,7 +15,7 @@
 <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
-            <a class="navbar-brand" href="#">ServiSoft</a>
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ServiSoft</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -69,12 +74,16 @@
             </section>
 
             <aside class="col-md-3  hidden-xs hidden-sm">
-                <h4>Redes Sociales</h4>
                 <div class="list-group">
-                    <a href="#" class="list-group-item active">Prueba</a>
-                    <a href="#" class="list-group-item">Tomate</a>
-                    <a href="#" class="list-group-item">Queso</a>
-                    <a href="#" class="list-group-item">Pan</a>
+                    @if (SignInManager.IsSignedIn(User) && User.IsInRole("Administrador"))
+                    {
+
+                    }
+                    else
+                    {
+                        <p href="#" class="list-group-item active">Si eres Administrador</p>
+                    }
+                    <partial name="_LoginPartial" />
 
                 </div><br />
 
@@ -115,7 +124,8 @@
 
                 <ul class="col-3 list-unstyled">
 
-                    <li><img src="~/Logo/escudo.png" /></li><br />
+                    <li><img style="margin-left:5px" src="~/Logo/escudo.png" /></li>
+                    <br />
 
                     <li><a class="text-reset" href="#"><img src="~/Nortic/NorticA2.png" /></a></li>
 
