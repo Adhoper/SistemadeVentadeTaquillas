@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace VentadeTaquillas.Migrations
 {
-    public partial class VenderTaquilla : Migration
+    public partial class VenderTaquis : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -41,7 +41,9 @@ namespace VentadeTaquillas.Migrations
                 columns: table => new
                 {
                     AsientoId = table.Column<Guid>(nullable: false),
-                    NumAsiento = table.Column<int>(nullable: false)
+                    NumeroAsiento = table.Column<int>(nullable: false),
+                    Estado = table.Column<string>(nullable: true),
+                    SalaId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -63,6 +65,18 @@ namespace VentadeTaquillas.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Cines",
+                columns: table => new
+                {
+                    CineId = table.Column<Guid>(nullable: false),
+                    NombreCine = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Cines", x => x.CineId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Clientes",
                 columns: table => new
                 {
@@ -80,16 +94,46 @@ namespace VentadeTaquillas.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Taquillas",
+                name: "Peliculas",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
-                    ClienteId = table.Column<Guid>(nullable: false),
-                    AsientoId = table.Column<Guid>(nullable: false)
+                    PeliculaId = table.Column<Guid>(nullable: false),
+                    NombrePeli = table.Column<string>(nullable: true),
+                    ImagenPeli = table.Column<string>(nullable: true),
+                    Descripcion = table.Column<string>(nullable: true),
+                    FechaPeli = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Taquillas", x => x.Id);
+                    table.PrimaryKey("PK_Peliculas", x => x.PeliculaId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Salas",
+                columns: table => new
+                {
+                    SalaId = table.Column<Guid>(nullable: false),
+                    Nombre = table.Column<string>(nullable: true),
+                    CineId = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Salas", x => x.SalaId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Taquillas",
+                columns: table => new
+                {
+                    TaquillaId = table.Column<Guid>(nullable: false),
+                    ClienteId = table.Column<Guid>(nullable: false),
+                    AsientoId = table.Column<Guid>(nullable: false),
+                    PeliculaId = table.Column<Guid>(nullable: false),
+                    CineId = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Taquillas", x => x.TaquillaId);
                 });
 
             migrationBuilder.CreateTable(
@@ -259,7 +303,16 @@ namespace VentadeTaquillas.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Cines");
+
+            migrationBuilder.DropTable(
                 name: "Clientes");
+
+            migrationBuilder.DropTable(
+                name: "Peliculas");
+
+            migrationBuilder.DropTable(
+                name: "Salas");
 
             migrationBuilder.DropTable(
                 name: "Taquillas");

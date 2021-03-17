@@ -10,14 +10,14 @@ using VentadeTaquillas.Data;
 namespace VentadeTaquillas.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210308192314_VenderTaquilla")]
-    partial class VenderTaquilla
+    [Migration("20210317030227_VenderTaquis")]
+    partial class VenderTaquis
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.1")
+                .HasAnnotation("ProductVersion", "3.1.13")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -242,12 +242,32 @@ namespace VentadeTaquillas.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("NumAsiento")
+                    b.Property<string>("Estado")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("NumeroAsiento")
                         .HasColumnType("int");
+
+                    b.Property<Guid>("SalaId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("AsientoId");
 
                     b.ToTable("Asientos");
+                });
+
+            modelBuilder.Entity("VentadeTaquillas.Data.Cine", b =>
+                {
+                    b.Property<Guid>("CineId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("NombreCine")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("CineId");
+
+                    b.ToTable("Cines");
                 });
 
             modelBuilder.Entity("VentadeTaquillas.Data.Cliente", b =>
@@ -279,19 +299,65 @@ namespace VentadeTaquillas.Migrations
                     b.ToTable("Clientes");
                 });
 
+            modelBuilder.Entity("VentadeTaquillas.Data.Pelicula", b =>
+                {
+                    b.Property<Guid>("PeliculaId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Descripcion")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("FechaPeli")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ImagenPeli")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NombrePeli")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("PeliculaId");
+
+                    b.ToTable("Peliculas");
+                });
+
+            modelBuilder.Entity("VentadeTaquillas.Data.Sala", b =>
+                {
+                    b.Property<Guid>("SalaId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CineId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Nombre")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("SalaId");
+
+                    b.ToTable("Salas");
+                });
+
             modelBuilder.Entity("VentadeTaquillas.Data.Taquilla", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("TaquillaId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("AsientoId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("CineId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid>("ClienteId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("Id");
+                    b.Property<Guid>("PeliculaId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("TaquillaId");
 
                     b.ToTable("Taquillas");
                 });

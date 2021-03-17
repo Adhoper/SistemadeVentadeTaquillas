@@ -1,0 +1,46 @@
+﻿@model VentadeTaquillas.Data.Pelicula
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Pelicula</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="PeliculaId" />
+            <div class="form-group">
+                <label asp-for="NombrePeli" class="control-label"></label>
+                <input asp-for="NombrePeli" class="form-control" />
+                <span asp-validation-for="NombrePeli" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImagenPeli" class="control-label"></label>
+                <input asp-for="ImagenPeli" class="form-control" />
+                <span asp-validation-for="ImagenPeli" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Descripcion" class="control-label"></label>
+                <input asp-for="Descripcion" class="form-control" />
+                <span asp-validation-for="Descripcion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FechaPeli" class="control-label"></label>
+                <input asp-for="FechaPeli" class="form-control" />
+                <span asp-validation-for="FechaPeli" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

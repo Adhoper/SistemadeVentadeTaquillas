@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using VentadeTaquillas.Models;
 
 namespace VentadeTaquillas.Data
 {
@@ -20,6 +22,8 @@ namespace VentadeTaquillas.Data
         public DbSet<Asiento> Asientos { get; set; }
 
         public DbSet<Sala> Salas { get; set; }
+
+        public DbSet<Cine> Cines { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -39,6 +43,7 @@ namespace VentadeTaquillas.Data
 
             });
         }
+
 
     }
 
@@ -70,28 +75,46 @@ namespace VentadeTaquillas.Data
             public Guid ClienteId { get; set; }
             public Guid AsientoId { get; set; }
         public Guid PeliculaId { get; set; }
+
+        public Guid CineId { get; set; }
         }
 
     public class Sala
     {
         public Guid SalaId { get; set; }
-        public Guid Nombre { get; set; }
+        public string Nombre { get; set; }
+
+        public Guid CineId { get; set; }
 
     }
 
     public class Asiento
     {
         public Guid AsientoId { get; set; }
-        public Guid NumeroAsiento { get; set; }
+        public int NumeroAsiento { get; set; }
+
+        public string Estado { get; set; }
 
         public Guid SalaId { get; set; }
+
+    }
+
+    public class Cine
+    {
+        public Guid CineId { get; set; }
+        public string NombreCine { get; set; }
 
     }
 
     public class Pelicula
     {
         public Guid PeliculaId { get; set; }
-        public Guid NombrePeli { get; set; }
+        public string NombrePeli { get; set; }
+        public string ImagenPeli { get; set; }
+
+        public string Descripcion { get; set; }
+
+        public DateTime FechaPeli { get; set; }
     }
 }
 
