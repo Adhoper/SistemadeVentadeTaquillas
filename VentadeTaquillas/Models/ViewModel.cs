@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using VentadeTaquillas.ImgModel;
+using VentadeTaquillas.Data;
+
 
 namespace VentadeTaquillas.Models
 {
     public class ViewModel
     {
-        public PeliculaImgModel peliculaimg { get; set; }
+
+        public Pelicula peliculass { get; set; }
     }
 }

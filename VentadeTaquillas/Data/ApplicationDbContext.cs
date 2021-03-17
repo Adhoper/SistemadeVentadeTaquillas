@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
@@ -8,6 +9,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using VentadeTaquillas.Models;
+using Microsoft.AspNetCore.Http.Extensions;
+using System.Web;
 
 namespace VentadeTaquillas.Data
 {
@@ -110,7 +113,10 @@ namespace VentadeTaquillas.Data
     {
         public Guid PeliculaId { get; set; }
         public string NombrePeli { get; set; }
+        [DisplayName("Descarga")]
         public string ImagenPeli { get; set; }
+        [NotMapped]
+        public IFormFile ImagenPelis { get; set; }
 
         public string Descripcion { get; set; }
 

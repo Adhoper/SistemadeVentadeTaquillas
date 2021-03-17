@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using VentadeTaquillas.Data;
-using VentadeTaquillas.ImgModel;
 using VentadeTaquillas.Models;
 
 namespace VentadeTaquillas.Controllers
@@ -65,7 +64,7 @@ namespace VentadeTaquillas.Controllers
         // GET: Peliculas/Create
         public IActionResult Create()
         {
-            return View(vm);
+            return View();
         }
 
         // POST: Peliculas/Create
@@ -73,16 +72,27 @@ namespace VentadeTaquillas.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PeliculaId,NombrePeli,ImagenPeli,Descripcion,FechaPeli")] Pelicula pelicula,PeliculaImgModel imgModel)
+        public async Task<IActionResult> Create([Bind("PeliculaId,NombrePeli,ImagenPeli,Descripcion,FechaPeli")] Pelicula pelicula)
         {
+
+            string fileName = null;
+            if (pelicula.ImagenPelis != null)
+            {
+                string uploadDir = Path.Combine(_webHostEnviroment.WebRootPath, "Imagenes");
+                fileName = Guid.NewGuid().ToString() + "-" + pelicula.ImagenPelis.FileName;
+                string FilePath = Path.Combine(uploadDir, fileName);
+
+                using (var fileStream = new FileStream(FilePath, FileMode.Create))
+                {
+                    pelicula.ImagenPelis.CopyTo(fileStream);
+                }
+
+
+            }
+
             if (ModelState.IsValid)
             {
-
-                string stringFileName = UploadFile(imgModel);
-
-                pelicula.ImagenPeli = stringFileName;
-
-
+                pelicula.ImagenPeli = fileName;
                 pelicula.PeliculaId = Guid.NewGuid();
                 _context.Add(pelicula);
                 await _context.SaveChangesAsync();
@@ -91,25 +101,6 @@ namespace VentadeTaquillas.Controllers
             return View(pelicula);
         }
 
-
-        private string UploadFile(PeliculaImgModel imgModel)
-        {
-            string fileName = null;
-            if (imgModel.ImagenPeli != null)
-            {
-                string uploadDir = Path.Combine(_webHostEnviroment.WebRootPath, "Imagenes");
-                fileName = Guid.NewGuid().ToString() + "-" + imgModel.ImagenPeli.FileName;
-                string FilePath = Path.Combine(uploadDir, fileName);
-
-                using (var fileStream = new FileStream(FilePath, FileMode.Create))
-                {
-                    imgModel.ImagenPeli.CopyTo(fileStream);
-                }
-
-
-            }
-            return fileName;
-        }
 
         // GET: Peliculas/Edit/5
         public async Task<IActionResult> Edit(Guid? id)
