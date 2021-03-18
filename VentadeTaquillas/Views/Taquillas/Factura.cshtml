@@ -1,7 +1,80 @@
-﻿
+﻿@model IEnumerable<VentadeTaquillas.Data.Taquilla>
+
 @{
     ViewData["Title"] = "Factura";
 }
 
-<h1>Factura</h1>
+<div class="card">
+     <div class="card-body">
+<div class="row">
+    <div class="col-8">
+        <div class="text-center">
+            <h1>ServiSoft</h1>
+            <p>Los Mejores en servicio de Software.</p>
+            <p>Contactanos.</p>
+            <p>809-816-2616 - ServiSoft_RD@gmail.com</p>
+        </div>
+    </div>
+<div class="col">
+<div>
 
+    <img src="~/Logo/Logo_enmarcadoo.png" style="margin-bottom:10px;" width="150px" class="rounded-circle"/>
+</div>
+</div>
+
+
+    </div>
+<hr />
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Nombre del Cliente
+            </th>
+            <th>
+                Pelicula
+            </th>
+            <th>
+                Cine
+            </th>
+            <th>
+                Sala
+            </th>
+            <th>
+                Asiento
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ClienteId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AsientoId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PeliculaId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SalaId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CineId)
+                </td>
+            </tr>
+        }
+
+
+    </tbody>
+</table>
+         </div>
+    </div>
+<br />
+<div style="float:right">
+    <div><a class="btn btn-primary" asp-action="Edit" asp-route-id="">Impimir</a></div>
+</div>

@@ -8,25 +8,26 @@
 
 <section id="galeria" class="container">
     <div class="text-center pt-3">
-        <h1>Peliculas Disponibles</h1>
-
+        <h1>Peliculas Proximas</h1>
+        <p>Click para ver detalles</p>
     </div>
     <div class="row">
-        @foreach (var item in Model)
-        {
-            <div class="col-lg-4">
-              
-                @if (item.ImagenPeli != null) {
-
-                            var base64 = Convert.ToBase64String(item.ImagenPeli);
-                            var img = string.Format("data:image/jpg;base64,{0}", base64);
-
-                <a href="#"><img class="img-thumbnail" src="@img" alt="" /></a>
-
-                }
-
-            </div>
-        }
+        <div class="col-lg-4">
+            <a href="#"><img class="img-thumbnail" src="~/Imagenes/YoungWoman.jpg" alt="" /></a>
+        </div>
+        <div class="col-lg-4">
+            <a href="#"><img class="img-thumbnail" src="~/Imagenes/Avengers.jpg" alt="" /></a>
+        </div>
+        <div class="col-lg-4">
+            <a href="#"><img class="img-thumbnail" src="~/Imagenes/IntensaMente.jpg" alt="" /></a>
+        </div>
+        <div class="col-lg-4">
+            <a href="#"><img class="img-thumbnail" src="~/Imagenes/GodZillaKingkong.jpeg" alt="" /></a>
+        </div>
+        <div class="col-lg-4">
+            <a href="#"><img class="img-thumbnail" src="~/Imagenes/BlackWidow.jpg" alt="" /></a>
+        </div>
     </div>
+  
 </section>
 

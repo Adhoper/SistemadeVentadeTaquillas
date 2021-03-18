@@ -67,7 +67,7 @@ namespace VentadeTaquillas.Controllers
 
         public IActionResult Factura()
         {
-            return View();
+            return View(_context.Taquillas.ToList());
         }
 
         // GET: Taquillas/Edit/5
