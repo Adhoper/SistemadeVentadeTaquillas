@@ -33,13 +33,13 @@ namespace VentadeTaquillas.Controllers
 
         public IActionResult PeliculasDisp()
         {
-            return View();
+            return View(_context.Peliculas.ToList());
         }
 
 
         public IActionResult PeliculasProx()
         {
-            return View();
+            return View(_context.Peliculas.ToList());
         }
 
 
@@ -72,28 +72,29 @@ namespace VentadeTaquillas.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PeliculaId,NombrePeli,ImagenPeli,Descripcion,FechaPeli")] Pelicula pelicula)
+        public async Task<IActionResult> Create([Bind("PeliculaId,NombrePeli,ImagenPeli,Descripcion,FechaPeli,Valor")] Pelicula pelicula)
         {
-
-            string fileName = null;
-            if (pelicula.ImagenPelis != null)
-            {
-                string uploadDir = Path.Combine(_webHostEnviroment.WebRootPath, "Imagenes");
-                fileName = Guid.NewGuid().ToString() + "-" + pelicula.ImagenPelis.FileName;
-                string FilePath = Path.Combine(uploadDir, fileName);
-
-                using (var fileStream = new FileStream(FilePath, FileMode.Create))
-                {
-                    pelicula.ImagenPelis.CopyTo(fileStream);
-                }
-
-
-            }
 
             if (ModelState.IsValid)
             {
-                pelicula.ImagenPeli = fileName;
+
+                var files = HttpContext.Request.Form.Files;
+                if (files.Count() > 0)
+                {
+                    byte[] pics = null;
+                    using (var fileStream = files[0].OpenReadStream())
+                    {
+                        using(var memorystream = new MemoryStream())
+                        {
+                            fileStream.CopyTo(memorystream);
+                            pics = memorystream.ToArray();
+                        }
+                    }
+                    pelicula.ImagenPeli = pics;
+                }
+
                 pelicula.PeliculaId = Guid.NewGuid();
+                
                 _context.Add(pelicula);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -123,7 +124,7 @@ namespace VentadeTaquillas.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("PeliculaId,NombrePeli,ImagenPeli,Descripcion,FechaPeli")] Pelicula pelicula)
+        public async Task<IActionResult> Edit(Guid id, [Bind("PeliculaId,NombrePeli,ImagenPeli,Descripcion,FechaPeli,Valor")] Pelicula pelicula)
         {
             if (id != pelicula.PeliculaId)
             {

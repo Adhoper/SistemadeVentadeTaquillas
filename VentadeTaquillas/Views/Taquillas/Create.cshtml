@@ -1,0 +1,69 @@
+﻿@model VentadeTaquillas.Data.Taquilla
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1 class="text-center">Seleccione los datos de su taquillas</h1>
+
+<h4 class="text-center">Datos de Cine</h4>
+<hr />
+<form asp-action="Create">
+
+    <div class="row">
+        <div class="col">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ClienteId" class="control-label"></label>
+                <input asp-for="ClienteId" class="form-control" readonly />
+                <span asp-validation-for="ClienteId" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="PeliculaId" class="control-label"></label>
+                <input asp-for="PeliculaId" class="form-control" readonly />
+                <span asp-validation-for="PeliculaId" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-5">
+            <div class="form-group">
+                <label asp-for="CineId" class="control-label"></label>
+                <select asp-for="CineId" asp-items="@(new SelectList("CineId", "NombreCine"))" class="form-control"></select>
+
+                <span asp-validation-for="CineId" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="SalaId" class="control-label"></label>
+                <select asp-for="SalaId" asp-items="@(new SelectList("CineId", "NombreCine"))" class="form-control"></select>
+                <span asp-validation-for="SalaId" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="AsientoId" class="control-label"></label>
+                <select asp-for="AsientoId" asp-items="@(new SelectList("CineId", "NombreCine"))" class="form-control"></select>
+                <span asp-validation-for="AsientoId" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="custom-control custom-checkbox">
+        <input type="checkbox" checked class="custom-control-input" id="customCheck1">
+        <label class="custom-control-label" for="customCheck1">Pagado</label>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Imprimir" style="float:right" class="btn btn-primary" />
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

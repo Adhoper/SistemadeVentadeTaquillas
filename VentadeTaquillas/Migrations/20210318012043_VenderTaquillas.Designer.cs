@@ -10,8 +10,8 @@ using VentadeTaquillas.Data;
 namespace VentadeTaquillas.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210317030227_VenderTaquis")]
-    partial class VenderTaquis
+    [Migration("20210318012043_VenderTaquillas")]
+    partial class VenderTaquillas
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -291,9 +291,6 @@ namespace VentadeTaquillas.Migrations
                     b.Property<string>("Telefono")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Usuario")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("ClienteId");
 
                     b.ToTable("Clientes");
@@ -311,15 +308,44 @@ namespace VentadeTaquillas.Migrations
                     b.Property<DateTime>("FechaPeli")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("ImagenPeli")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<byte[]>("ImagenPeli")
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<string>("NombrePeli")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Valor")
+                        .HasColumnType("int");
+
                     b.HasKey("PeliculaId");
 
                     b.ToTable("Peliculas");
+                });
+
+            modelBuilder.Entity("VentadeTaquillas.Data.Publicacion", b =>
+                {
+                    b.Property<Guid>("PublicacionId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Descripcion")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Evento")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("FechaPeli")
+                        .HasColumnType("datetime2");
+
+                    b.Property<byte[]>("ImagenPubliPeli")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("NombrePubliPeli")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("PublicacionId");
+
+                    b.ToTable("Publicaciones");
                 });
 
             modelBuilder.Entity("VentadeTaquillas.Data.Sala", b =>
@@ -355,6 +381,9 @@ namespace VentadeTaquillas.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("PeliculaId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("SalaId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("TaquillaId");

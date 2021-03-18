@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -8,6 +8,14 @@
   <ItemGroup>
     <Compile Remove="Migrations\20210317022551_VenderTaquillas.cs" />
     <Compile Remove="Migrations\20210317022551_VenderTaquillas.Designer.cs" />
+    <Compile Remove="Migrations\20210317030227_VenderTaquis.cs" />
+    <Compile Remove="Migrations\20210317030227_VenderTaquis.Designer.cs" />
+    <Compile Remove="Migrations\20210317172856_VenderTaquillas.cs" />
+    <Compile Remove="Migrations\20210317172856_VenderTaquillas.Designer.cs" />
+    <Compile Remove="Migrations\20210317194148_VentasTaquillas.cs" />
+    <Compile Remove="Migrations\20210317194148_VentasTaquillas.Designer.cs" />
+    <Compile Remove="Migrations\20210318004538_TaquillaVender.cs" />
+    <Compile Remove="Migrations\20210318004538_TaquillaVender.Designer.cs" />
   </ItemGroup>
 
 

@@ -1,4 +1,4 @@
-﻿@model VentadeTaquillas.Data.Pelicula
+﻿@model VentadeTaquillas.Data.Publicacion
 
 @{
     ViewData["Title"] = "Create";
@@ -6,31 +6,31 @@
 
 <h1>Create</h1>
 
-<h4>Pelicula</h4>
+<h4>Publicacion</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form method="post" asp-controller="Peliculas" asp-action="Create" enctype="multipart/form-data">
+        <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="NombrePeli" class="control-label"></label>
-                <input asp-for="NombrePeli" class="form-control" />
-                <span asp-validation-for="NombrePeli" class="text-danger"></span>
+                <label asp-for="NombrePubliPeli" class="control-label"></label>
+                <input asp-for="NombrePubliPeli" class="form-control" />
+                <span asp-validation-for="NombrePubliPeli" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ImagenPeli" class="control-label"></label>
-                <input type="file" asp-for="ImagenPeli" name="file" class="form-control" />
-                <span asp-validation-for="ImagenPeli" class="text-danger"></span>
+                <label asp-for="Evento" class="control-label"></label>
+                <input asp-for="Evento" class="form-control" />
+                <span asp-validation-for="Evento" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImagenPubliPeli" class="control-label"></label>
+                <input asp-for="ImagenPubliPeli" class="form-control" />
+                <span asp-validation-for="ImagenPubliPeli" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Descripcion" class="control-label"></label>
                 <input asp-for="Descripcion" class="form-control" />
                 <span asp-validation-for="Descripcion" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Valor" class="control-label"></label>
-                <input asp-for="Valor" class="form-control" />
-                <span asp-validation-for="Valor" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="FechaPeli" class="control-label"></label>

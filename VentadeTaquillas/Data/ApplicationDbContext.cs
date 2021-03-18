@@ -28,6 +28,8 @@ namespace VentadeTaquillas.Data
 
         public DbSet<Cine> Cines { get; set; }
 
+        public DbSet<Publicacion> Publicaciones { get; set; }
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
@@ -66,7 +68,6 @@ namespace VentadeTaquillas.Data
 
         public string Nombre { get; set; }
         public string Apellido { get; set; }
-        public string Usuario { get; set; }
         public string Correo { get; set; }
         public string Ciudad { get; set; }
         public string Telefono { get; set; }
@@ -78,6 +79,8 @@ namespace VentadeTaquillas.Data
             public Guid ClienteId { get; set; }
             public Guid AsientoId { get; set; }
         public Guid PeliculaId { get; set; }
+
+        public Guid SalaId { get; set; }
 
         public Guid CineId { get; set; }
         }
@@ -113,10 +116,24 @@ namespace VentadeTaquillas.Data
     {
         public Guid PeliculaId { get; set; }
         public string NombrePeli { get; set; }
-        [DisplayName("Descarga")]
-        public string ImagenPeli { get; set; }
-        [NotMapped]
-        public IFormFile ImagenPelis { get; set; }
+        public byte[] ImagenPeli { get; set; }
+
+
+        public string Descripcion { get; set; }
+
+        public DateTime FechaPeli { get; set; }
+
+        public int Valor { get; set; }
+    }
+
+    public class Publicacion
+    {
+        public Guid PublicacionId { get; set; }
+        public string NombrePubliPeli { get; set; }
+
+        public string Evento { get; set; }
+        public byte[] ImagenPubliPeli { get; set; }
+
 
         public string Descripcion { get; set; }
 

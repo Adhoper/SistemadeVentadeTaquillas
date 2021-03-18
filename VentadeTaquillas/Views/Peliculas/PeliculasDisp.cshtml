@@ -1,4 +1,5 @@
-﻿
+﻿@model IEnumerable<VentadeTaquillas.Data.Pelicula>
+
 @{
     ViewData["Title"] = "PeliculasDisp";
 }
@@ -8,27 +9,27 @@
 <section id="galeria" class="container">
     <div class="text-center pt-3">
         <h1>Peliculas Disponibles</h1>
-
+        <p>Click para ver detalles</p>
     </div>
     <div class="row">
-        <div class="col-lg-4">
-            <a href="#"><img class="img-thumbnail" src="~/ImagenesPelis/201263091341_1.jpg" alt="" /></a>
-        </div>
-        <div class="col-lg-4">
-            <a href="#"><img class="img-thumbnail" src="~/ImagenesPelis/a5ca89e7c0dc8cccd7c0dc2314bd3f8d.jpg" alt="" /></a>
-        </div>
-        <div class="col-lg-4">
-            <a href="#"><img class="img-thumbnail" src="~/ImagenesPelis/resident_evil_extinction_resident_evil_3-571197761-large.jpg" alt="" /></a>
-        </div>
-        <div class="col-lg-4">
-            <a href="#"><img class="img-thumbnail" src="~/ImagenesPelis/soul.jpg" alt="" /></a>
-        </div>
-        <div class="col-lg-4">
-            <a href="#"><img class="img-thumbnail" src="~/ImagenesPelis/SU_Movie_Poster.jpg" alt="" /></a>
-        </div>
-        <div class="col-lg-4">
-            <a href="#"><img class="img-thumbnail" src="~/ImagenesPelis/unnamed.jpg" alt="" /></a>
-        </div>
+        @foreach (var item in Model)
+        {
+            <div class="col-lg-4">
+
+                @if (item.ImagenPeli != null)
+                {
+
+                    var base64 = Convert.ToBase64String(item.ImagenPeli);
+                    var img = string.Format("data:image/jpg;base64,{0}", base64);
+
+                    <a asp-action="Details" asp-route-id="@item.PeliculaId"><img class="img-thumbnail" src="@img" alt="" /></a>
+
+                }
+
+            </div>
+
+        }
+
     </div>
 </section>
 

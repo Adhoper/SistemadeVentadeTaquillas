@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace VentadeTaquillas.Migrations
 {
-    public partial class VenderTaquis : Migration
+    public partial class VenderTaquillas : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -83,7 +83,6 @@ namespace VentadeTaquillas.Migrations
                     ClienteId = table.Column<Guid>(nullable: false),
                     Nombre = table.Column<string>(nullable: true),
                     Apellido = table.Column<string>(nullable: true),
-                    Usuario = table.Column<string>(nullable: true),
                     Correo = table.Column<string>(nullable: true),
                     Ciudad = table.Column<string>(nullable: true),
                     Telefono = table.Column<string>(nullable: true)
@@ -99,13 +98,30 @@ namespace VentadeTaquillas.Migrations
                 {
                     PeliculaId = table.Column<Guid>(nullable: false),
                     NombrePeli = table.Column<string>(nullable: true),
-                    ImagenPeli = table.Column<string>(nullable: true),
+                    ImagenPeli = table.Column<byte[]>(nullable: true),
+                    Descripcion = table.Column<string>(nullable: true),
+                    FechaPeli = table.Column<DateTime>(nullable: false),
+                    Valor = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Peliculas", x => x.PeliculaId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Publicaciones",
+                columns: table => new
+                {
+                    PublicacionId = table.Column<Guid>(nullable: false),
+                    NombrePubliPeli = table.Column<string>(nullable: true),
+                    Evento = table.Column<string>(nullable: true),
+                    ImagenPubliPeli = table.Column<byte[]>(nullable: true),
                     Descripcion = table.Column<string>(nullable: true),
                     FechaPeli = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Peliculas", x => x.PeliculaId);
+                    table.PrimaryKey("PK_Publicaciones", x => x.PublicacionId);
                 });
 
             migrationBuilder.CreateTable(
@@ -129,6 +145,7 @@ namespace VentadeTaquillas.Migrations
                     ClienteId = table.Column<Guid>(nullable: false),
                     AsientoId = table.Column<Guid>(nullable: false),
                     PeliculaId = table.Column<Guid>(nullable: false),
+                    SalaId = table.Column<Guid>(nullable: false),
                     CineId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
@@ -310,6 +327,9 @@ namespace VentadeTaquillas.Migrations
 
             migrationBuilder.DropTable(
                 name: "Peliculas");
+
+            migrationBuilder.DropTable(
+                name: "Publicaciones");
 
             migrationBuilder.DropTable(
                 name: "Salas");
