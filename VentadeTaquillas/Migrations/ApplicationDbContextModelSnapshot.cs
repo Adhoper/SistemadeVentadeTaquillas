@@ -270,9 +270,10 @@ namespace VentadeTaquillas.Migrations
 
             modelBuilder.Entity("VentadeTaquillas.Data.Cliente", b =>
                 {
-                    b.Property<Guid>("ClienteId")
+                    b.Property<int>("NumeroClienteId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Apellido")
                         .HasColumnType("nvarchar(max)");
@@ -280,16 +281,22 @@ namespace VentadeTaquillas.Migrations
                     b.Property<string>("Ciudad")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("ClienteId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Correo")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nombre")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("PeliculaId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Telefono")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("ClienteId");
+                    b.HasKey("NumeroClienteId");
 
                     b.ToTable("Clientes");
                 });
@@ -341,6 +348,9 @@ namespace VentadeTaquillas.Migrations
                     b.Property<string>("NombrePubliPeli")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("PeliculaId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("PublicacionId");
 
                     b.ToTable("Publicaciones");
@@ -365,9 +375,10 @@ namespace VentadeTaquillas.Migrations
 
             modelBuilder.Entity("VentadeTaquillas.Data.Taquilla", b =>
                 {
-                    b.Property<Guid>("TaquillaId")
+                    b.Property<int>("NumeroTaquillaId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<Guid>("AsientoId")
                         .HasColumnType("uniqueidentifier");
@@ -384,7 +395,10 @@ namespace VentadeTaquillas.Migrations
                     b.Property<Guid>("SalaId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("TaquillaId");
+                    b.Property<Guid>("TaquillaId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("NumeroTaquillaId");
 
                     b.ToTable("Taquillas");
                 });

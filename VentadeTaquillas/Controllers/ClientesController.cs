@@ -45,6 +45,24 @@ namespace VentadeTaquillas.Controllers
         // GET: Clientes/Create
         public IActionResult Create()
         {
+
+
+            return View();
+        }
+
+
+        public IActionResult Intermedio()
+        {
+
+            int Idclientes = _context.Clientes.Max(p => p.NumeroClienteId);
+
+            Guid? Idcliente = _context.Clientes.Where(p=>p.NumeroClienteId==Idclientes).FirstOrDefault().ClienteId;
+            Guid? IdPelicula = _context.Clientes.Where(c => c.ClienteId == Idcliente).FirstOrDefault().PeliculaId;
+
+            ViewBag.idCliente = Idcliente;
+            ViewBag.idPelicula = IdPelicula;
+
+
             return View();
         }
 
@@ -53,27 +71,28 @@ namespace VentadeTaquillas.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ClienteId,Nombre,Apellido,Usuario,Correo,Ciudad,Telefono")] Cliente cliente)
+        public async Task<IActionResult> Create([Bind("ClienteId,PeliculaId,Nombre,Apellido,Usuario,Correo,Ciudad,Telefono")] Cliente cliente, Guid? id)
         {
             if (ModelState.IsValid)
             {
                 cliente.ClienteId = Guid.NewGuid();
+                cliente.PeliculaId = ViewBag.idpeli = id;
                 _context.Add(cliente);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Create", "Taquillas");
+                return RedirectToAction("Intermedio","Clientes");
             }
             return View(cliente);
         }
 
         // GET: Clientes/Edit/5
-        public async Task<IActionResult> Edit(Guid? id)
+        public async Task<IActionResult> Edit(Guid? idcl, Guid? id)
         {
-            if (id == null)
+            if (idcl == null)
             {
                 return NotFound();
             }
 
-            var cliente = await _context.Clientes.FindAsync(id);
+            var cliente = await _context.Clientes.FindAsync(idcl);
             if (cliente == null)
             {
                 return NotFound();
@@ -111,7 +130,7 @@ namespace VentadeTaquillas.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Intermedio", "Clientes");
             }
             return View(cliente);
         }

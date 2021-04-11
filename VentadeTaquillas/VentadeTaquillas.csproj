@@ -16,6 +16,10 @@
     <Compile Remove="Migrations\20210317194148_VentasTaquillas.Designer.cs" />
     <Compile Remove="Migrations\20210318004538_TaquillaVender.cs" />
     <Compile Remove="Migrations\20210318004538_TaquillaVender.Designer.cs" />
+    <Compile Remove="Migrations\20210318012043_VenderTaquillas.cs" />
+    <Compile Remove="Migrations\20210318012043_VenderTaquillas.Designer.cs" />
+    <Compile Remove="Migrations\20210323235952_Vendertaquillas.cs" />
+    <Compile Remove="Migrations\20210323235952_Vendertaquillas.Designer.cs" />
   </ItemGroup>
 
 

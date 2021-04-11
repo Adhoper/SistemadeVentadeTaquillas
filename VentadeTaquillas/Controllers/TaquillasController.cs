@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using VentadeTaquillas.Data;
+using VentadeTaquillas.ViewModels;
 
 namespace VentadeTaquillas.Controllers
 {
@@ -43,10 +45,45 @@ namespace VentadeTaquillas.Controllers
         }
 
         // GET: Taquillas/Create
-        public IActionResult Create()
+        public IActionResult Create(Guid? id, Guid idcl,ViewModelTaquillasDemas vmtd)
         {
-            return View();
+
+            var result = new ViewModelTaquillasDemas
+            {
+                Cines = _context.Cines.ToList(),
+                Asientos = _context.Asientos.ToList(),
+                Clientes = _context.Clientes.ToList(),
+                Peliculas = _context.Peliculas.ToList(),
+                Salas = _context.Salas.ToList(),
+
+            };
+
+
+
+                ViewBag.idCliente = idcl;
+            ViewBag.idPelicula = id;
+
+
+            return View(result);
         }
+
+        [AllowAnonymous]
+        [HttpGet("api/models/{id}")]
+        public IEnumerable<Sala> Models(Guid id)
+        {
+            return _context.Salas.ToList()
+                .Where(m => m.CineId == id);
+        }
+
+        [AllowAnonymous]
+        [HttpGet("api/asientos/{id}")]
+        public IEnumerable<Asiento> ModelsAsientos(Guid id)
+        {
+            return _context.Asientos.ToList()
+                .Where(m => m.SalaId == id && m.Estado =="Disponible");
+        }
+
+
 
         // POST: Taquillas/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
@@ -57,17 +94,40 @@ namespace VentadeTaquillas.Controllers
         {
             if (ModelState.IsValid)
             {
+                var asiento = _context.Asientos.Where(p => p.AsientoId.Equals(taquilla.AsientoId)).FirstOrDefault();
+                asiento.Estado = "Ocupado";
+
+
                 taquilla.TaquillaId = Guid.NewGuid();
                 _context.Add(taquilla);
+                _context.Asientos.Update(asiento);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+               
+
+                return RedirectToAction("Factura","Taquillas");
             }
             return View(taquilla);
         }
 
         public IActionResult Factura()
         {
-            return View(_context.Taquillas.ToList());
+            int IdTaquillas = _context.Taquillas.Max(p => p.NumeroTaquillaId);
+
+            Guid? IdTaquilla = _context.Taquillas.Where(p => p.NumeroTaquillaId == IdTaquillas).FirstOrDefault().TaquillaId;
+
+            var result = (_context.Taquillas.Where(f => f.TaquillaId == IdTaquilla).Select(s => new ViewModelTaquilla
+            {
+                TaquillaId = s.TaquillaId,
+                ClienteNombre = _context.Clientes.Where(c => c.ClienteId == s.ClienteId).FirstOrDefault().Nombre,
+                ClienteApellido = _context.Clientes.Where(c => c.ClienteId == s.ClienteId).FirstOrDefault().Apellido,
+                PeliculaNombre = _context.Peliculas.Where(c => c.PeliculaId == s.PeliculaId).FirstOrDefault().NombrePeli,
+                CineNombre = _context.Cines.Where(c => c.CineId == s.CineId).FirstOrDefault().NombreCine,
+                SalaNombre = _context.Salas.Where(c => c.SalaId == s.SalaId).FirstOrDefault().Nombre,
+                AsientoNombre = _context.Asientos.Where(c => c.AsientoId == s.AsientoId).FirstOrDefault().NumeroAsiento.ToString(),
+
+            }).ToList());
+
+            return View(result);
         }
 
         // GET: Taquillas/Edit/5

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace VentadeTaquillas.Migrations
 {
-    public partial class VenderTaquillas : Migration
+    public partial class VentaTaquilla : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -80,7 +80,10 @@ namespace VentadeTaquillas.Migrations
                 name: "Clientes",
                 columns: table => new
                 {
+                    NumeroClienteId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     ClienteId = table.Column<Guid>(nullable: false),
+                    PeliculaId = table.Column<Guid>(nullable: false),
                     Nombre = table.Column<string>(nullable: true),
                     Apellido = table.Column<string>(nullable: true),
                     Correo = table.Column<string>(nullable: true),
@@ -89,7 +92,7 @@ namespace VentadeTaquillas.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Clientes", x => x.ClienteId);
+                    table.PrimaryKey("PK_Clientes", x => x.NumeroClienteId);
                 });
 
             migrationBuilder.CreateTable(
@@ -117,7 +120,8 @@ namespace VentadeTaquillas.Migrations
                     Evento = table.Column<string>(nullable: true),
                     ImagenPubliPeli = table.Column<byte[]>(nullable: true),
                     Descripcion = table.Column<string>(nullable: true),
-                    FechaPeli = table.Column<DateTime>(nullable: false)
+                    FechaPeli = table.Column<DateTime>(nullable: false),
+                    PeliculaId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -141,6 +145,8 @@ namespace VentadeTaquillas.Migrations
                 name: "Taquillas",
                 columns: table => new
                 {
+                    NumeroTaquillaId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     TaquillaId = table.Column<Guid>(nullable: false),
                     ClienteId = table.Column<Guid>(nullable: false),
                     AsientoId = table.Column<Guid>(nullable: false),
@@ -150,7 +156,7 @@ namespace VentadeTaquillas.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Taquillas", x => x.TaquillaId);
+                    table.PrimaryKey("PK_Taquillas", x => x.NumeroTaquillaId);
                 });
 
             migrationBuilder.CreateTable(

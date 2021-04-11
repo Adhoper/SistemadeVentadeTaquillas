@@ -63,7 +63,7 @@ namespace VentadeTaquillas
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Publicacions}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
         }

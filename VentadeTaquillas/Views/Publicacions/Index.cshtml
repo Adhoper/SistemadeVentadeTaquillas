@@ -4,56 +4,35 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<link rel="stylesheet" href="~/css/inicio.css" />
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.NombrePubliPeli)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Evento)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ImagenPubliPeli)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Descripcion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FechaPeli)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.NombrePubliPeli)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Evento)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ImagenPubliPeli)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Descripcion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaPeli)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.PublicacionId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.PublicacionId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.PublicacionId">Delete</a>
-            </td>
-        </tr>
+
+@foreach (var item in Model)
+{
+
+    string comple = item.NombrePubliPeli + " " + item.Evento;
+
+<article class="post clearfix">
+    <a asp-controller="Peliculas" asp-action="Details" asp-route-id="@item.PeliculaId" style='float:left' class="thumb">
+        @if (item.ImagenPubliPeli != null)
+        {
+            var base64 = Convert.ToBase64String(item.ImagenPubliPeli);
+            var img = string.Format("data:image/jpg;base64,{0}", base64);
+
+            <img class="img-thumbnail" src="@img" alt="" />
+        }
+        </a>
+    <h2 class="post-title">
+        <a asp-controller="Peliculas" asp-action="Details" asp-route-id="@item.PeliculaId">@comple</a>
+    </h2>
+    <p><span class="post-fecha">@item.FechaPeli.ToString("dd/MM/yyyy")</span></p>
+    <p class="post-contenido text-justify">
+        @item.Descripcion
+
+    </p>
+    <div class="contenedor-botones">
+        <a class="btn btn-primary" asp-controller="Clientes" asp-action="Create" asp-route-id="@item.PeliculaId">Comprar Taquilla</a>
+    </div>
+</article>
+
 }
-    </tbody>
-</table>

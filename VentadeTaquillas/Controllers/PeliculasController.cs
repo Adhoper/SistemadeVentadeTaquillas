@@ -133,8 +133,25 @@ namespace VentadeTaquillas.Controllers
 
             if (ModelState.IsValid)
             {
+                
+
                 try
                 {
+                    var files = HttpContext.Request.Form.Files;
+                    if (files.Count() > 0)
+                    {
+                        byte[] pics = null;
+                        using (var fileStream = files[0].OpenReadStream())
+                        {
+                            using (var memorystream = new MemoryStream())
+                            {
+                                fileStream.CopyTo(memorystream);
+                                pics = memorystream.ToArray();
+                            }
+                        }
+                        pelicula.ImagenPeli = pics;
+                    }
+
                     _context.Update(pelicula);
                     await _context.SaveChangesAsync();
                 }

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<VentadeTaquillas.Data.Taquilla>
+﻿@model IEnumerable<VentadeTaquillas.ViewModels.ViewModelTaquilla>
 
 @{
     ViewData["Title"] = "Factura";
@@ -52,19 +52,19 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ClienteId)
+                    @Html.DisplayFor(modelItem => item.ClienteNombre) @Html.DisplayFor(modelItem => item.ClienteApellido)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.AsientoId)
+                    @Html.DisplayFor(modelItem => item.PeliculaNombre)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.PeliculaId)
+                    @Html.DisplayFor(modelItem => item.CineNombre)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.SalaId)
+                    @Html.DisplayFor(modelItem => item.SalaNombre)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.CineId)
+                    @Html.DisplayFor(modelItem => item.AsientoNombre)
                 </td>
             </tr>
         }

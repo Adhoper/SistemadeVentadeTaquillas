@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -53,10 +54,27 @@ namespace VentadeTaquillas.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PublicacionId,NombrePubliPeli,Evento,ImagenPubliPeli,Descripcion,FechaPeli")] Publicacion publicacion)
+        public async Task<IActionResult> Create([Bind("PublicacionId,NombrePubliPeli,Evento,ImagenPubliPeli,Descripcion,FechaPeli,PeliculaId")] Publicacion publicacion)
         {
             if (ModelState.IsValid)
             {
+                var files = HttpContext.Request.Form.Files;
+                if (files.Count() > 0)
+                {
+                    byte[] pics = null;
+                    using (var fileStream = files[0].OpenReadStream())
+                    {
+                        using (var memorystream = new MemoryStream())
+                        {
+                            fileStream.CopyTo(memorystream);
+                            pics = memorystream.ToArray();
+                        }
+                    }
+                    publicacion.ImagenPubliPeli = pics;
+                }
+
+
+
                 publicacion.PublicacionId = Guid.NewGuid();
                 _context.Add(publicacion);
                 await _context.SaveChangesAsync();
@@ -86,7 +104,7 @@ namespace VentadeTaquillas.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("PublicacionId,NombrePubliPeli,Evento,ImagenPubliPeli,Descripcion,FechaPeli")] Publicacion publicacion)
+        public async Task<IActionResult> Edit(Guid id, [Bind("PublicacionId,NombrePubliPeli,Evento,ImagenPubliPeli,Descripcion,FechaPeli,PeliculaId")] Publicacion publicacion)
         {
             if (id != publicacion.PublicacionId)
             {
@@ -95,8 +113,25 @@ namespace VentadeTaquillas.Controllers
 
             if (ModelState.IsValid)
             {
+
                 try
                 {
+
+                    var files = HttpContext.Request.Form.Files;
+                    if (files.Count() > 0)
+                    {
+                        byte[] pics = null;
+                        using (var fileStream = files[0].OpenReadStream())
+                        {
+                            using (var memorystream = new MemoryStream())
+                            {
+                                fileStream.CopyTo(memorystream);
+                                pics = memorystream.ToArray();
+                            }
+                        }
+                        publicacion.ImagenPubliPeli = pics;
+                    }
+
                     _context.Update(publicacion);
                     await _context.SaveChangesAsync();
                 }

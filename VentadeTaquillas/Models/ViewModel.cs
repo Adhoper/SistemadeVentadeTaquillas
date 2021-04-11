@@ -10,6 +10,9 @@ namespace VentadeTaquillas.Models
     public class ViewModel
     {
 
-        public Pelicula peliculass { get; set; }
+        public Pelicula pelis { get; set; }
+
+
+
     }
 }

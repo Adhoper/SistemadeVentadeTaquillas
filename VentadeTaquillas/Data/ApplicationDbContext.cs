@@ -64,20 +64,28 @@ namespace VentadeTaquillas.Data
 
     public class Cliente
     {
+        [Key]
+        public int NumeroClienteId { get; set; }
         public Guid ClienteId { get; set; }
 
+        public Guid PeliculaId { get; set; }
         public string Nombre { get; set; }
         public string Apellido { get; set; }
         public string Correo { get; set; }
         public string Ciudad { get; set; }
         public string Telefono { get; set; }
+
     }
 
         public class Taquilla
         {
-            public Guid TaquillaId { get; set; }
-            public Guid ClienteId { get; set; }
-            public Guid AsientoId { get; set; }
+
+        [Key]
+        public int NumeroTaquillaId { get; set; }
+
+        public Guid TaquillaId { get; set; }
+        public Guid ClienteId { get; set; }
+        public Guid AsientoId { get; set; }
         public Guid PeliculaId { get; set; }
 
         public Guid SalaId { get; set; }
@@ -138,6 +146,8 @@ namespace VentadeTaquillas.Data
         public string Descripcion { get; set; }
 
         public DateTime FechaPeli { get; set; }
+
+        public Guid PeliculaId { get; set; }
     }
 }
 

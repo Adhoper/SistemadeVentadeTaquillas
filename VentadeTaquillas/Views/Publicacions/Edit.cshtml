@@ -10,7 +10,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form method="post" asp-action="Edit" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="PublicacionId" />
             <div class="form-group">
@@ -25,7 +25,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="ImagenPubliPeli" class="control-label"></label>
-                <input asp-for="ImagenPubliPeli" class="form-control" />
+                <input type="file" asp-for="ImagenPubliPeli" name="file" class="form-control" />
                 <span asp-validation-for="ImagenPubliPeli" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -37,6 +37,11 @@
                 <label asp-for="FechaPeli" class="control-label"></label>
                 <input asp-for="FechaPeli" class="form-control" />
                 <span asp-validation-for="FechaPeli" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Selecciona la Pelicula</label>
+                <input asp-for="PeliculaId" class="form-control" />
+                <span asp-validation-for="PeliculaId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

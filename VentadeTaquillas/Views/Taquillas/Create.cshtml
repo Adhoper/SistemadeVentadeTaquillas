@@ -1,8 +1,92 @@
-﻿@model VentadeTaquillas.Data.Taquilla
+﻿@model VentadeTaquillas.ViewModels.ViewModelTaquillasDemas
+@using VentadeTaquillas.Data;
+
+
 
 @{
     ViewData["Title"] = "Create";
+
+
+    Guid idclient = ViewBag.idCliente;
+    Guid idpeli = ViewBag.idPelicula;
+
 }
+
+<script src="~/js/site.js" asp-append-version="true"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        var MakeCine = $("#CineList");
+        var MakeSala = $("#SalaList");
+        var MakeAsiento = $("#AsientoList");
+        MakeSala.prop('disabled', true);
+
+        MakeCine.change(function () {
+
+            if ($(this).val() == "0") {
+                MakeSala.prop('disabled', true);
+                MakeSala.val("0");
+                MakeAsiento.prop('disabled', true);
+                MakeAsiento.val("0");   
+
+            }
+            else {
+                $.ajax({
+
+                    url: "/api/models/" + $(this).val(),
+
+                    method: "get",
+
+                    success: function (data) {
+                        MakeSala.prop('disabled', false);
+                        MakeSala.empty();
+                        MakeAsiento.empty();
+                        MakeAsiento.append($('<option/>', { value: '0', text: '--Selecciona el Asiento--' }));
+                        MakeSala.append($('<option/>', { value: '0', text: '--Selecciona la Sala--' }));
+                        $(data).each(function (index, item) {
+                            MakeSala.append($('<option/>', { value: item.salaId, text: item.nombre }));
+                        });
+                    }
+
+                });
+            }
+        });
+    });
+
+     $(document).ready(function () {
+        var MakeSala = $("#SalaList");
+        var MakeAsiento = $("#AsientoList");
+        MakeAsiento.prop('disabled', true);
+
+        MakeSala.change(function () {
+
+            if ($(this).val() == "0") {
+                MakeAsiento.prop('disabled', true);
+                MakeAsiento.val("0");
+            }
+            else {
+                $.ajax({
+
+                    url: "/api/asientos/" + $(this).val(),
+
+                    method: "get",
+
+                    success: function (data) {
+                        MakeAsiento.prop('disabled', false);
+                        MakeAsiento.empty();
+                        MakeAsiento.append($('<option/>', { value: '0', text: '--Asientos Disponibles--' }));
+                        $(data).each(function (index, item) {
+                            MakeAsiento.append($('<option/>', { value: item.asientoId, text: item.numeroAsiento }));
+                        });
+                    }
+
+                });
+            }
+        });
+    });
+
+</script>
 
 <h1 class="text-center">Seleccione los datos de su taquillas</h1>
 
@@ -12,64 +96,88 @@
 <div class="card">
     <div class="card-header text-white  bg-dark"></div>
     <div class="card-body">
-<form asp-action="Create">
 
-    <div class="row">
-        <div class="col">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label class="control-label">Cliente</label>
-                <input asp-for="ClienteId" class="form-control" readonly />
-                <span asp-validation-for="ClienteId" class="text-danger"></span>
+        @{
+            string Nombre = Model.Clientes.Where(p => p.ClienteId == idclient).FirstOrDefault().Nombre;
+            string Apellido = Model.Clientes.Where(p => p.ClienteId == idclient).FirstOrDefault().Apellido;
+            Guid idcl = Model.Clientes.Where(p => p.ClienteId == idclient).FirstOrDefault().ClienteId;
+
+            string nombrecompleto = Nombre + " " + Apellido;
+
+
+            var peli = Model.Peliculas.Where(p => p.PeliculaId == idpeli);
+        }
+        <form asp-action="Create" asp-controller="Taquillas" method="post" enctype="multipart/form-data">
+
+            <div class="row">
+                <div class="col">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label class="control-label">Cliente</label>
+                        <select class="form-control" asp-for="ClienteId">
+
+                            <option value="@idcl">@nombrecompleto</option>
+
+                        </select>
+                        <span asp-validation-for="ClienteId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label class="control-label">Pelicula</label>
+                        <select asp-for="PeliculaId" asp-items="@(new SelectList(peli,"PeliculaId", "NombrePeli"))" class="form-control"></select>
+                        <span asp-validation-for="PeliculaId" class="text-danger"></span>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="col">
-            <div class="form-group">
-                <label class="control-label">Pelicula</label>
-                <input asp-for="PeliculaId" class="form-control" readonly />
-                <span asp-validation-for="PeliculaId" class="text-danger"></span>
+
+            <div class="row">
+                <div class="col-5">
+                    <div class="form-group">
+                        <label class="control-label">Cine</label>
+                        <select asp-for="CineId" id="CineList" asp-items="@(new SelectList(Model.Cines,"CineId","NombreCine"))" class="form-control">
+
+                            <option value="0">--Selecciona el Cine--</option>
+                        </select>
+
+                        <span asp-validation-for="CineId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label class="control-label">Sala</label>
+                        <select asp-for="SalaId" id="SalaList" class="form-control">
+
+                            <option value="0">--Selecciona la Sala--</option>
+
+                        </select>
+                        <span asp-validation-for="SalaId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label class="control-label">Asiento</label>
+                        <select asp-for="AsientoId" id="AsientoList" class="form-control">
+                            <option value="0">--Selecciona el Asiento--</option>
+
+                        </select>
+                        <span asp-validation-for="AsientoId" class="text-danger"></span>
+                    </div>
+                </div>
             </div>
+
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" checked class="custom-control-input" id="customCheck1">
+                <label class="custom-control-label" for="customCheck1">Pagado</label>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" asp-action="Create" value="Create" style="float:right" class="btn btn-primary" />
+            </div>
+        </form>
+
+        <div>
+            <a asp-controller="Home" class="btn btn-dark" asp-action="Index">Volver al Inicio</a>
         </div>
     </div>
-
-    <div class="row">
-        <div class="col-5">
-            <div class="form-group">
-                <label class="control-label">Cine</label>
-                <select asp-for="CineId" asp-items="@(new SelectList("CineId", "NombreCine"))" class="form-control"></select>
-
-                <span asp-validation-for="CineId" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="col">
-            <div class="form-group">
-                <label class="control-label">Sala</label>
-                <select asp-for="SalaId" asp-items="@(new SelectList("CineId", "NombreCine"))" class="form-control"></select>
-                <span asp-validation-for="SalaId" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="col">
-            <div class="form-group">
-                <label class="control-label">Asiento</label>
-                <select asp-for="AsientoId" asp-items="@(new SelectList("CineId", "NombreCine"))" class="form-control"></select>
-                <span asp-validation-for="AsientoId" class="text-danger"></span>
-            </div>
-        </div>
-    </div>
-
-    <div class="custom-control custom-checkbox">
-        <input type="checkbox" checked class="custom-control-input" id="customCheck1">
-        <label class="custom-control-label" for="customCheck1">Pagado</label>
-    </div>
-
-    <div class="form-group">
-        <input type="submit" value="Comprar y Ver Factura" style="float:right" class="btn btn-primary" />
-    </div>
-</form>
-
-<div>
-    <a asp-controller="Home" class="btn btn-dark" asp-action="Index">Volver al Inicio</a>
 </div>
-  </div>
-  </div>
-

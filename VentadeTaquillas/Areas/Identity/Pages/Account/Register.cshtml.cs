@@ -47,18 +47,38 @@ namespace VentadeTaquillas.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required]
+            [Display(Name = "Nombre")]
+            public string Nombre { get; set; }
+
+            [Required]
+            [Display(Name = "Apellido")]
+            public string Apellido { get; set; }
+
+            [Required]
+            [Display(Name = "Nombre de Usuario")]
+            public string NombreUsuario { get; set; }
+
+            [Required]
+            [Display(Name = "Ciudad")]
+            public string Ciudad { get; set; }
+
+            [Required]
+            [Display(Name = "Telefono")]
+            public string NumeroTelefonico { get; set; }
+
+            [Required]
             [EmailAddress]
-            [Display(Name = "Email")]
+            [Display(Name = "Correo")]
             public string Email { get; set; }
 
             [Required]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
             [DataType(DataType.Password)]
-            [Display(Name = "Password")]
+            [Display(Name = "Contraseña")]
             public string Password { get; set; }
 
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
+            [Display(Name = "Confirma la Contraseña")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
         }
@@ -75,7 +95,7 @@ namespace VentadeTaquillas.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new Administrador { UserName = Input.Email, Email = Input.Email };
+                var user = new Administrador { UserName = Input.NombreUsuario, Email = Input.Email, PhoneNumber = Input.NumeroTelefonico,Nombre = Input.Nombre,Apellido=Input.Apellido,Ciudad=Input.Ciudad };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
