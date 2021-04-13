@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using VentadeTaquillas.Data;
+using VentadeTaquillas.ViewModels;
 
 namespace VentadeTaquillas.Controllers
 {
@@ -21,7 +22,20 @@ namespace VentadeTaquillas.Controllers
         // GET: Clientes
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Clientes.ToListAsync());
+
+            var result = (await _context.Taquillas.Select(s => new VMClienteR
+            {
+                ClienteId = s.ClienteId,
+                Nombre = _context.Clientes.Where(c => c.ClienteId == s.ClienteId).FirstOrDefault().Nombre,
+                Apellido = _context.Clientes.Where(c => c.ClienteId == s.ClienteId).FirstOrDefault().Apellido,
+                PeliculaNombre = _context.Peliculas.Where(c => c.PeliculaId == s.PeliculaId).FirstOrDefault().NombrePeli,
+                Correo = _context.Clientes.Where(c => c.ClienteId == s.ClienteId).FirstOrDefault().Correo,
+                Ciudad = _context.Clientes.Where(c => c.ClienteId == s.ClienteId).FirstOrDefault().Ciudad,
+                Telefono = _context.Clientes.Where(c => c.ClienteId == s.ClienteId).FirstOrDefault().Telefono,
+
+            }).ToListAsync());
+
+            return View(result);
         }
 
         // GET: Clientes/Details/5
