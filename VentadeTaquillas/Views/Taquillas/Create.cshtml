@@ -24,11 +24,11 @@
 
         MakeCine.change(function () {
 
-            if ($(this).val() == "0") {
+            if ($(this).val() == "") {
                 MakeSala.prop('disabled', true);
-                MakeSala.val("0");
+                MakeSala.val("");
                 MakeAsiento.prop('disabled', true);
-                MakeAsiento.val("0");   
+                MakeAsiento.val("");   
 
             }
             else {
@@ -42,8 +42,8 @@
                         MakeSala.prop('disabled', false);
                         MakeSala.empty();
                         MakeAsiento.empty();
-                        MakeAsiento.append($('<option/>', { value: '0', text: '--Selecciona el Asiento--' }));
-                        MakeSala.append($('<option/>', { value: '0', text: '--Selecciona la Sala--' }));
+                        MakeAsiento.append($('<option/>', { value: "", text: '--Selecciona el Asiento--' }));
+                        MakeSala.append($('<option/>', { value: "", text: '--Selecciona la Sala--' }));
                         $(data).each(function (index, item) {
                             MakeSala.append($('<option/>', { value: item.salaId, text: item.nombre }));
                         });
@@ -61,9 +61,9 @@
 
         MakeSala.change(function () {
 
-            if ($(this).val() == "0") {
+            if ($(this).val() == "") {
                 MakeAsiento.prop('disabled', true);
-                MakeAsiento.val("0");
+                MakeAsiento.val("");
             }
             else {
                 $.ajax({
@@ -75,7 +75,8 @@
                     success: function (data) {
                         MakeAsiento.prop('disabled', false);
                         MakeAsiento.empty();
-                        MakeAsiento.append($('<option/>', { value: '0', text: '--Asientos Disponibles--' }));
+                        MakeAsiento.append($('<option/>', { value: "", text: '--Asientos Disponibles--' }));
+
                         $(data).each(function (index, item) {
                             MakeAsiento.append($('<option/>', { value: item.asientoId, text: item.numeroAsiento }));
                         });
@@ -135,9 +136,9 @@
                 <div class="col-5">
                     <div class="form-group">
                         <label class="control-label">Cine</label>
-                        <select asp-for="CineId" id="CineList" asp-items="@(new SelectList(Model.Cines,"CineId","NombreCine"))" class="form-control">
+                        <select required asp-for="CineId" id="CineList" asp-items="@(new SelectList(Model.Cines,"CineId","NombreCine"))" class="form-control">
 
-                            <option value="0">--Selecciona el Cine--</option>
+                            <option value="">--Selecciona un Cine--</option>
                         </select>
 
                         <span asp-validation-for="CineId" class="text-danger"></span>
@@ -146,9 +147,9 @@
                 <div class="col">
                     <div class="form-group">
                         <label class="control-label">Sala</label>
-                        <select asp-for="SalaId" id="SalaList" class="form-control">
+                        <select required asp-for="SalaId" id="SalaList" class="form-control">
 
-                            <option value="0">--Selecciona la Sala--</option>
+                            
 
                         </select>
                         <span asp-validation-for="SalaId" class="text-danger"></span>
@@ -157,8 +158,8 @@
                 <div class="col">
                     <div class="form-group">
                         <label class="control-label">Asiento</label>
-                        <select asp-for="AsientoId" id="AsientoList" class="form-control">
-                            <option value="0">--Selecciona el Asiento--</option>
+                        <select required asp-for="AsientoId" id="AsientoList" class="form-control">
+                            
 
                         </select>
                         <span asp-validation-for="AsientoId" class="text-danger"></span>

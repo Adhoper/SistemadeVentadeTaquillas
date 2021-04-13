@@ -23,7 +23,20 @@ namespace VentadeTaquillas.Controllers
         // GET: Taquillas
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Taquillas.ToListAsync());
+
+            var result = (await _context.Taquillas.Select(s => new ViewModelTaquilla
+            {
+                TaquillaId = s.TaquillaId,
+                ClienteNombre = _context.Clientes.Where(c => c.ClienteId == s.ClienteId).FirstOrDefault().Nombre,
+                ClienteApellido = _context.Clientes.Where(c => c.ClienteId == s.ClienteId).FirstOrDefault().Apellido,
+                PeliculaNombre = _context.Peliculas.Where(c => c.PeliculaId == s.PeliculaId).FirstOrDefault().NombrePeli,
+                CineNombre = _context.Cines.Where(c => c.CineId == s.CineId).FirstOrDefault().NombreCine,
+                SalaNombre = _context.Salas.Where(c => c.SalaId == s.SalaId).FirstOrDefault().Nombre,
+                AsientoNombre = _context.Asientos.Where(c => c.AsientoId == s.AsientoId).FirstOrDefault().NumeroAsiento.ToString(),
+
+            }).ToListAsync());
+
+            return View(result);
         }
 
         // GET: Taquillas/Details/5

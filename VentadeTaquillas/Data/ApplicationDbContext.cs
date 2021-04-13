@@ -85,11 +85,12 @@ namespace VentadeTaquillas.Data
 
         public Guid TaquillaId { get; set; }
         public Guid ClienteId { get; set; }
+        [Required]
         public Guid AsientoId { get; set; }
         public Guid PeliculaId { get; set; }
-
+        [Required]
         public Guid SalaId { get; set; }
-
+        [Required]
         public Guid CineId { get; set; }
         }
 

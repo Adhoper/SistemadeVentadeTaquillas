@@ -1,31 +1,28 @@
-﻿@model IEnumerable<VentadeTaquillas.Data.Taquilla>
+﻿@model IEnumerable<VentadeTaquillas.ViewModels.ViewModelTaquilla>
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1 class="text-center">Reporte de Taquillas Compradas</h1><hr /><br />
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
-    <thead>
+    <thead class="bg-primary">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.ClienteId)
+                Cliente
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.AsientoId)
+                Pelicula
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PeliculaId)
+                Cine
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.SalaId)
+                Sala
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CineId)
+                Asiento
             </th>
             <th></th>
         </tr>
@@ -34,24 +31,19 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.ClienteId)
+                @Html.DisplayFor(modelItem => item.ClienteNombre) @Html.DisplayFor(modelItem => item.ClienteApellido)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.AsientoId)
+                @Html.DisplayFor(modelItem => item.PeliculaNombre)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PeliculaId)
+                @Html.DisplayFor(modelItem => item.CineNombre)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.SalaId)
+                @Html.DisplayFor(modelItem => item.SalaNombre)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CineId)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.TaquillaId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.TaquillaId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.TaquillaId">Delete</a>
+            <td class="text-center">
+                @Html.DisplayFor(modelItem => item.AsientoNombre)
             </td>
         </tr>
 }
