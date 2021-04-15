@@ -4,7 +4,7 @@
     ViewData["Title"] = "Factura";
 }
 
-<div class="card">
+<div id="contenido" class="card">
      <div class="card-body">
 <div class="row">
     <div class="col-8">
@@ -76,5 +76,32 @@
     </div>
 <br />
 <div style="float:right">
-    <div><a class="btn btn-primary" asp-action="Edit" asp-route-id="">Impimir</a></div>
+    
+    <a href="#" id="print" class="btn btn-primary">Impimir</a>
 </div>
+
+@section scripts{ 
+
+<script>
+
+    $("#print").click(function () {
+        var elemento = document.getElementById('contenido');
+
+        html2pdf().from(elemento).set({
+
+            filename: 'Taquilla.pdf',
+            margin: [30, 10, 5, 10],
+            pagebreak: { avoid: 'tr' },
+            jsPDF: { orientation: 'landscape', unit: 'pt', format: 'letter', compressPDF: true }
+
+        }).save()
+
+    });
+
+
+
+</script>
+
+
+
+}

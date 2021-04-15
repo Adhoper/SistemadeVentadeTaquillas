@@ -145,6 +145,7 @@ namespace VentadeTaquillas.Controllers
             return View(result);
         }
 
+
         // GET: Taquillas/Edit/5
         [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> Edit(Guid? id)
