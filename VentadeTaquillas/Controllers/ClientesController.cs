@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -39,6 +40,7 @@ namespace VentadeTaquillas.Controllers
         }
 
         // GET: Clientes/Details/5
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
@@ -99,6 +101,7 @@ namespace VentadeTaquillas.Controllers
         }
 
         // GET: Clientes/Edit/5
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> Edit(Guid? idcl, Guid? id)
         {
             if (idcl == null)
@@ -119,6 +122,7 @@ namespace VentadeTaquillas.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> Edit(Guid id, [Bind("ClienteId,Nombre,Apellido,Usuario,Correo,Ciudad,Telefono")] Cliente cliente)
         {
             if (id != cliente.ClienteId)
@@ -150,6 +154,7 @@ namespace VentadeTaquillas.Controllers
         }
 
         // GET: Clientes/Delete/5
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
@@ -170,6 +175,7 @@ namespace VentadeTaquillas.Controllers
         // POST: Clientes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
             var cliente = await _context.Clientes.FindAsync(id);

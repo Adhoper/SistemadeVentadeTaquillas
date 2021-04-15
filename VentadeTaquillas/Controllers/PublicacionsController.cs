@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using VentadeTaquillas.Data;
+using VentadeTaquillas.ViewModels;
 
 namespace VentadeTaquillas.Controllers
 {
@@ -25,7 +27,14 @@ namespace VentadeTaquillas.Controllers
             return View(await _context.Publicaciones.ToListAsync());
         }
 
+        [Authorize(Roles = "Administrador")]
+        public IActionResult MantenimientoPubli()
+        {
+            return View(_context.Publicaciones.ToList());
+        }
+
         // GET: Publicacions/Details/5
+
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
@@ -44,9 +53,17 @@ namespace VentadeTaquillas.Controllers
         }
 
         // GET: Publicacions/Create
+        [Authorize(Roles = "Administrador")]
         public IActionResult Create()
         {
-            return View();
+            var result = new VMPublicaciones
+            {
+
+                Peliculas = _context.Peliculas.ToList(),
+
+            };
+
+            return View(result);
         }
 
         // POST: Publicacions/Create
@@ -54,6 +71,7 @@ namespace VentadeTaquillas.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> Create([Bind("PublicacionId,NombrePubliPeli,Evento,ImagenPubliPeli,Descripcion,FechaPeli,PeliculaId")] Publicacion publicacion)
         {
             if (ModelState.IsValid)
@@ -78,12 +96,13 @@ namespace VentadeTaquillas.Controllers
                 publicacion.PublicacionId = Guid.NewGuid();
                 _context.Add(publicacion);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("MantenimientoPubli", "Publicacions");
             }
             return View(publicacion);
         }
 
         // GET: Publicacions/Edit/5
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
@@ -91,12 +110,15 @@ namespace VentadeTaquillas.Controllers
                 return NotFound();
             }
 
+
+            ViewBag.ListaPelis = _context.Peliculas.ToList();
+
             var publicacion = await _context.Publicaciones.FindAsync(id);
             if (publicacion == null)
             {
                 return NotFound();
             }
-            return View(publicacion);
+            return View();
         }
 
         // POST: Publicacions/Edit/5
@@ -104,6 +126,7 @@ namespace VentadeTaquillas.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> Edit(Guid id, [Bind("PublicacionId,NombrePubliPeli,Evento,ImagenPubliPeli,Descripcion,FechaPeli,PeliculaId")] Publicacion publicacion)
         {
             if (id != publicacion.PublicacionId)
@@ -146,12 +169,13 @@ namespace VentadeTaquillas.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("MantenimientoPubli", "Publicacions");
             }
             return View(publicacion);
         }
 
         // GET: Publicacions/Delete/5
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
@@ -172,12 +196,13 @@ namespace VentadeTaquillas.Controllers
         // POST: Publicacions/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
             var publicacion = await _context.Publicaciones.FindAsync(id);
             _context.Publicaciones.Remove(publicacion);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("MantenimientoPubli", "Publicacions");
         }
 
         private bool PublicacionExists(Guid id)

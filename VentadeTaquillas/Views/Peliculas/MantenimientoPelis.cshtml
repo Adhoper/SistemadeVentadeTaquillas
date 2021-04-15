@@ -1,0 +1,70 @@
+﻿@model IEnumerable<VentadeTaquillas.Data.Pelicula>
+
+@{
+    ViewData["Title"] = "MantenimientoPelis";
+}
+
+<h1>Registro de Peliculas Disponibles</h1><hr /><br />
+
+<p>
+    <a class="btn btn-primary" asp-action="Create">Añadir Nueva Pelicula</a>
+</p>
+<br />
+<table class="table">
+    <thead class="bg-primary">
+        <tr>
+            <th>
+                Nombre de la Pelicula
+            </th>
+            <th>
+                Imagen
+            </th>
+            <th>
+                Descripcion
+            </th>
+            <th>
+                Valor Taquilla
+            </th>
+            <th>
+                Fecha Estreno
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NombrePeli)
+                </td>
+                <td>
+                    @if (item.ImagenPeli != null)
+                    {
+
+                        var base64 = Convert.ToBase64String(item.ImagenPeli);
+                        var img = string.Format("data:image/jpg;base64,{0}", base64);
+
+                        <img class="img-thumbnail" src="@img" alt="" />
+
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Descripcion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Valor)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaPeli)
+                </td>
+                <td class="btn-group btn-group-sm" role="group">
+                    <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.PeliculaId"><i class="far fa-edit"></i></a>
+                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.PeliculaId"><i class="fas fa-trash-alt"></i></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js" integrity="sha384-SlE991lGASHoBfWbelyBPLsUlwY1GwNDJo3jSJO04KZ33K2bwfV9YBauFfnzvynJ" crossorigin="anonymous"></script>

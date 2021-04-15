@@ -3,20 +3,90 @@
     ViewData["Title"] = "Mantenimento";
 }
 
-<h1>Mantenimento</h1>
+<h1 class="text-center">Mantenimento</h1>
+<hr /><br />
 
-<div>
-    <a asp-controller="Cines" asp-action="Index" class="btn btn-primary">Cines y mas</a>
-</div>
-<div>
-    <a asp-controller="Publicacions" asp-action="Reportes" class="btn btn-primary">Publicaciones</a>
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/dashboard/">
 
-</div>
-<div>
-    <a asp-controller="Clientes" asp-action="Index" class="btn btn-primary">Clientes</a>
 
-</div>
-<div>
+    <!-- Bootstrap core CSS -->
+    <link href="/docs/5.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
 
-    <a asp-controller="Taquillas" asp-action="Index" class="btn btn-primary">Taquillas</a>
-</div>
+    <!-- Custom styles for this template -->
+    <link href="dashboard.css" rel="stylesheet">
+
+
+    <div class="container-fluid text-center justify-content-center">
+        <div class="row justify-content-center rounded">
+            <nav id="sidebarMenu" class="col-md-50 col-lg-3 d-md-block bg-info  sidebar collapse">
+                <div class="position-sticky pt-4">
+                    <ul class="nav flex-column">
+
+
+
+
+                        <li class="nav-item">
+
+                            <div>
+                                <a asp-controller="Cines" asp-action="CinesyMas" class="btn btn-light"><i class="fas fa-film"></i>&nbsp;Cines y mas</a>
+                            </div> <br /> <br />
+                        </li>
+
+                        <li class="nav-item">
+                            <div>
+                                <a asp-controller="Publicacions" asp-action="MantenimientoPubli" class="btn btn-light"><i class="far fa-clone"></i>&nbsp;Publicaciones</a>
+
+                            </div> <br /> <br />
+
+
+                        </li>
+
+                        <li class="nav-item">
+                            <div>
+                                <a asp-controller="Clientes" asp-action="Index" class="btn btn-light"><i class="far fa-user"></i>&nbsp;Clientes</a>
+
+                            </div> <br /> <br />
+
+                        </li>
+
+
+                        <li class="nav-item">
+                            <div>
+
+                                <a asp-controller="Taquillas" asp-action="Index" class="btn btn-light"><i class="fas fa-ticket-alt"></i>&nbsp;Taquillas</a>
+                            </div> <br /> <br />
+                        </li>
+
+
+
+                        <li class="nav-item">
+                            <div>
+
+                                <a asp-controller="Peliculas" asp-action="MantenimientoPelis" class="btn btn-light"><i class="fas fa-video"></i>&nbsp;Peliculas</a>
+                            </div>
+                            <br /> <br />
+
+                        </li>
+
+                    </ul>
+                </div>
+
+            </nav>
+
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+
+
+
+                </div>
+
+            </main>
+
+        </div>
+    </div>
+
+
+    <script src="/docs/5.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+
+    <script src="dashboard.js"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js" integrity="sha384-SlE991lGASHoBfWbelyBPLsUlwY1GwNDJo3jSJO04KZ33K2bwfV9YBauFfnzvynJ" crossorigin="anonymous"></script>

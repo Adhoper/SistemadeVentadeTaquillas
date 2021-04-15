@@ -34,6 +34,7 @@ namespace VentadeTaquillas.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Administrador")]
         public IActionResult Mantenimiento()
         {
             return View();

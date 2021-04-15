@@ -1,0 +1,44 @@
+﻿@model IEnumerable<VentadeTaquillas.Data.Publicacion>
+
+@{
+    ViewData["Title"] = "MantenimientoPubli";
+}
+
+<link rel="stylesheet" href="~/css/inicio.css" />
+
+<h1>Registro de Publicaciones</h1><hr /><br />
+
+<a class="btn btn-primary"asp-controller="Publicacions" asp-action="Create">Agregar Nueva Publicacion</a><br /><br />
+
+@foreach (var item in Model)
+{
+
+    string comple = item.NombrePubliPeli + " " + item.Evento;
+
+    <article class="post clearfix">
+        <a asp-controller="Peliculas" asp-action="Details" asp-route-id="@item.PeliculaId" style='float:left' class="thumb">
+            @if (item.ImagenPubliPeli != null)
+            {
+                var base64 = Convert.ToBase64String(item.ImagenPubliPeli);
+                var img = string.Format("data:image/jpg;base64,{0}", base64);
+
+                <img class="img-thumbnail" src="@img" alt="" />
+            }
+        </a>
+        <h2 class="post-title">
+            <a asp-controller="Peliculas" asp-action="Details" asp-route-id="@item.PeliculaId">@comple</a>
+        </h2>
+        <p><span class="post-fecha">@item.FechaPeli.ToString("dd/MM/yyyy")</span></p>
+        <p class="post-contenido text-justify">
+            @item.Descripcion
+
+        </p>
+        <div class="contenedor-botones btn-group btn-group-sm" role="group">
+            <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.PublicacionId"><i class="far fa-edit"></i></a>
+            <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.PublicacionId"><i class="fas fa-trash-alt"></i></a>
+        </div>
+    </article>
+
+}
+
+<script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js" integrity="sha384-SlE991lGASHoBfWbelyBPLsUlwY1GwNDJo3jSJO04KZ33K2bwfV9YBauFfnzvynJ" crossorigin="anonymous"></script>

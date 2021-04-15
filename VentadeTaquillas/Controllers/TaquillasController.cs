@@ -21,6 +21,7 @@ namespace VentadeTaquillas.Controllers
         }
 
         // GET: Taquillas
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> Index()
         {
 
@@ -40,6 +41,7 @@ namespace VentadeTaquillas.Controllers
         }
 
         // GET: Taquillas/Details/5
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
@@ -144,6 +146,7 @@ namespace VentadeTaquillas.Controllers
         }
 
         // GET: Taquillas/Edit/5
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
@@ -164,6 +167,7 @@ namespace VentadeTaquillas.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> Edit(Guid id, [Bind("TaquillaId,ClienteId,AsientoId,PeliculaId,SalaId,CineId")] Taquilla taquilla)
         {
             if (id != taquilla.TaquillaId)
@@ -195,6 +199,7 @@ namespace VentadeTaquillas.Controllers
         }
 
         // GET: Taquillas/Delete/5
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
@@ -215,6 +220,7 @@ namespace VentadeTaquillas.Controllers
         // POST: Taquillas/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
             var taquilla = await _context.Taquillas.FindAsync(id);

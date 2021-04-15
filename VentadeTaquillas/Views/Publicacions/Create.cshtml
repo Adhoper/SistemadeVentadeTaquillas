@@ -1,55 +1,64 @@
-﻿@model VentadeTaquillas.Data.Publicacion
+﻿@model VentadeTaquillas.ViewModels.VMPublicaciones
 
 @{
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h1>Agregar Nueva Publicacion</h1>
 
-<h4>Publicacion</h4>
-<hr />
+
+<hr /><br />
+
+
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-5">
         <form method="post" asp-action="Create"  enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="NombrePubliPeli" class="control-label"></label>
-                <input asp-for="NombrePubliPeli" class="form-control" />
+                <label class="control-label">Nombre de la Pelicula en Publicacion</label>
+                <input asp-for="NombrePubliPeli" class="form-control" required />
                 <span asp-validation-for="NombrePubliPeli" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Evento" class="control-label"></label>
-                <input asp-for="Evento" class="form-control" />
+                <select asp-for="Evento" class="form-control" required>
+
+                    <option value="Ya Disponible!">Ya Disponible!</option>
+                    <option value="Proximamente!">Proximamente!</option>
+                </select>
                 <span asp-validation-for="Evento" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ImagenPubliPeli" class="control-label"></label>
-                <input type="file" asp-for="ImagenPubliPeli" name="file" class="form-control" />
+                <label class="control-label">Imagen de la Pelicula en Publicacion</label>
+                <input type="file" asp-for="ImagenPubliPeli" name="file" class="form-control-file" required/>
                 <span asp-validation-for="ImagenPubliPeli" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Descripcion" class="control-label"></label>
-                <input asp-for="Descripcion" class="form-control" />
+                <textarea asp-for="Descripcion" class="form-control" rows="4" required></textarea>
                 <span asp-validation-for="Descripcion" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="FechaPeli" class="control-label"></label>
-                <input asp-for="FechaPeli" class="form-control" />
+                <label class="control-label">Fecha de Estreno</label>
+                <input asp-for="FechaPeli" class="form-control" required/>
                 <span asp-validation-for="FechaPeli" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label class="control-label">Selecciona la Pelicula</label>
-                <input asp-for="PeliculaId" class="form-control" />
+                <select asp-for="PeliculaId" asp-items="@(new SelectList(Model.Peliculas,"PeliculaId","NombrePeli"))" class="form-control" required >
+                    <option value="">Selecciona una Pelicula</option>
+                </select>
                 <span asp-validation-for="PeliculaId" class="text-danger"></span>
             </div>
+            <br />
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Añadir Publicacion" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a class="btn btn-dark" asp-action="Index">Volver al Inicio</a>
 </div>
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +10,7 @@ using VentadeTaquillas.Data;
 
 namespace VentadeTaquillas.Controllers
 {
+    [Authorize(Roles = "Administrador")]
     public class AsientoesController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -45,6 +47,8 @@ namespace VentadeTaquillas.Controllers
         // GET: Asientoes/Create
         public IActionResult Create()
         {
+            ViewBag.Salas = _context.Salas.ToList();
+
             return View();
         }
 
@@ -60,7 +64,7 @@ namespace VentadeTaquillas.Controllers
                 asiento.AsientoId = Guid.NewGuid();
                 _context.Add(asiento);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("CinesyMas", "Cines");
             }
             return View(asiento);
         }

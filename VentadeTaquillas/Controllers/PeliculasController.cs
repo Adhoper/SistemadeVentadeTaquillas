@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -15,14 +16,12 @@ namespace VentadeTaquillas.Controllers
     public class PeliculasController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private readonly IWebHostEnvironment _webHostEnviroment;
-        ViewModel vm = new ViewModel();
  
 
-        public PeliculasController(ApplicationDbContext context, IWebHostEnvironment webHostEnviroment)
+        public PeliculasController(ApplicationDbContext context)
         {
             _context = context;
-            _webHostEnviroment = webHostEnviroment;
+
         }
 
         // GET: Peliculas
@@ -38,6 +37,12 @@ namespace VentadeTaquillas.Controllers
 
 
         public IActionResult PeliculasProx()
+        {
+            return View(_context.Peliculas.ToList());
+        }
+
+        [Authorize(Roles = "Administrador")]
+        public IActionResult MantenimientoPelis()
         {
             return View(_context.Peliculas.ToList());
         }
@@ -62,6 +67,7 @@ namespace VentadeTaquillas.Controllers
         }
 
         // GET: Peliculas/Create
+        [Authorize(Roles = "Administrador")]
         public IActionResult Create()
         {
             return View();
@@ -72,6 +78,7 @@ namespace VentadeTaquillas.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> Create([Bind("PeliculaId,NombrePeli,ImagenPeli,Descripcion,FechaPeli,Valor")] Pelicula pelicula)
         {
 
@@ -97,13 +104,14 @@ namespace VentadeTaquillas.Controllers
                 
                 _context.Add(pelicula);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("MantenimientoPelis", "Peliculas");
             }
             return View(pelicula);
         }
 
 
         // GET: Peliculas/Edit/5
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
@@ -124,6 +132,7 @@ namespace VentadeTaquillas.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> Edit(Guid id, [Bind("PeliculaId,NombrePeli,ImagenPeli,Descripcion,FechaPeli,Valor")] Pelicula pelicula)
         {
             if (id != pelicula.PeliculaId)
@@ -166,12 +175,13 @@ namespace VentadeTaquillas.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("MantenimientoPelis", "Peliculas");
             }
             return View(pelicula);
         }
 
         // GET: Peliculas/Delete/5
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
@@ -190,6 +200,7 @@ namespace VentadeTaquillas.Controllers
         }
 
         // POST: Peliculas/Delete/5
+        [Authorize(Roles = "Administrador")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
@@ -197,7 +208,7 @@ namespace VentadeTaquillas.Controllers
             var pelicula = await _context.Peliculas.FindAsync(id);
             _context.Peliculas.Remove(pelicula);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("MantenimientoPelis", "Peliculas");
         }
 
         private bool PeliculaExists(Guid id)

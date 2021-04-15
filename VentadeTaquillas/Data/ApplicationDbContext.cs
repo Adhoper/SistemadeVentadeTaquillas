@@ -130,6 +130,8 @@ namespace VentadeTaquillas.Data
 
         public string Descripcion { get; set; }
 
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        [DataType(DataType.Date)]
         public DateTime FechaPeli { get; set; }
 
         public int Valor { get; set; }
@@ -146,6 +148,8 @@ namespace VentadeTaquillas.Data
 
         public string Descripcion { get; set; }
 
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        [DataType(DataType.Date)]
         public DateTime FechaPeli { get; set; }
 
         public Guid PeliculaId { get; set; }

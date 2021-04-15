@@ -1,0 +1,142 @@
+﻿@model VentadeTaquillas.ViewModels.VMCinesyMas
+@using VentadeTaquillas.ViewModels;
+
+@{
+    ViewData["Title"] = "CinesyMas";
+
+
+    var Salas = Model.Salas.Select(s => new SalaVM
+    {
+
+        SalaId = s.SalaId,
+        NombreSala = s.Nombre,
+        NombreCine = Model.Cines.Where(c => c.CineId == s.CineId).FirstOrDefault().NombreCine
+
+    });
+
+
+    var Asientos = Model.Asientos.Select(s => new AsientoVM
+    {
+
+        AsientoId = s.AsientoId,
+        NumAsiento = s.NumeroAsiento.ToString(),
+        Estado = s.Estado,
+        NombreSala = Model.Salas.Where(c => c.SalaId == s.SalaId).FirstOrDefault().Nombre
+
+    });
+
+
+}
+<h1>Cines, Salas y Asientos Registrados</h1><hr /><br />
+
+    <div class="row">
+        <div class="col">
+            <h4 class="text-center">Cines</h4>
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>
+                            Cines
+                        </th>
+                        <th>
+                            <a asp-controller="Cines" asp-action="Create" ><i class="fas fa-plus"></i></a>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Cines)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NombreCine)
+                            </td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col">
+            <h4 class="text-center">Salas</h4>
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>
+                            Salas
+                        </th>
+
+                        <th>
+                            Cine Perteneciente
+                        </th>
+
+                        <th>
+                            <a asp-controller="Salas" asp-action="Create"><i class="fas fa-plus"></i></a>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Salas)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NombreSala)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NombreCine)
+                            </td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+
+    </div>
+<br />
+   <h4 class="text-center">Asientos</h4>
+<table class="table">
+    <thead class="thead-light">
+        <tr>
+            <th>
+                Asientos
+            </th>
+
+            <th>
+                Estado
+            </th>
+
+            <th>
+                Sala Perteneciente
+            </th>
+            <th>
+                <a asp-controller="Asientoes" asp-action="Create" ><i class="fas fa-plus"></i></a>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Asientos)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumAsiento)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Estado)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.NombreSala)
+            </td>
+
+        </tr>
+        }
+
+    </tbody>
+</table>
+
+
+<script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js" integrity="sha384-SlE991lGASHoBfWbelyBPLsUlwY1GwNDJo3jSJO04KZ33K2bwfV9YBauFfnzvynJ" crossorigin="anonymous"></script>

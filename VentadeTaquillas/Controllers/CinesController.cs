@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using VentadeTaquillas.Data;
+using VentadeTaquillas.ViewModels;
 
 namespace VentadeTaquillas.Controllers
 {
+    [Authorize(Roles = "Administrador")]
     public class CinesController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -22,6 +25,21 @@ namespace VentadeTaquillas.Controllers
         public async Task<IActionResult> Index()
         {
             return View(await _context.Cines.ToListAsync());
+        }
+
+        public IActionResult CinesyMas()
+        {
+
+
+            var result = new VMCinesyMas
+            {
+                Cines = _context.Cines.ToList(),
+                Asientos = _context.Asientos.ToList(),
+                Salas = _context.Salas.ToList(),
+
+            };
+
+            return View(result);
         }
 
         // GET: Cines/Details/5
@@ -60,7 +78,7 @@ namespace VentadeTaquillas.Controllers
                 cine.CineId = Guid.NewGuid();
                 _context.Add(cine);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("CinesyMas", "Cines");
             }
             return View(cine);
         }
