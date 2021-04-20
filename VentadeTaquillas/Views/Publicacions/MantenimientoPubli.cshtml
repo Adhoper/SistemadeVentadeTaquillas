@@ -16,7 +16,7 @@
     string comple = item.NombrePubliPeli + " " + item.Evento;
 
     <article class="post clearfix">
-        <a asp-controller="Peliculas" asp-action="Details" asp-route-id="@item.PeliculaId" style='float:left' class="thumb">
+        <a  style='float:left' class="thumb">
             @if (item.ImagenPubliPeli != null)
             {
                 var base64 = Convert.ToBase64String(item.ImagenPubliPeli);
@@ -26,7 +26,7 @@
             }
         </a>
         <h2 class="post-title">
-            <a asp-controller="Peliculas" asp-action="Details" asp-route-id="@item.PeliculaId">@comple</a>
+            <a >@comple</a>
         </h2>
         <p><span class="post-fecha">@item.FechaPeli.ToString("dd/MM/yyyy")</span></p>
         <p class="post-contenido text-justify">
